@@ -11,8 +11,11 @@ The task was to create working development, testing and production environments 
 You should start by cloning this repo into a new directory;
 
 `mkdir UberApp`
+
 `cd UberApp`
+
 `git clone git@github.com:qamaraden/group-project-main.git`
+
 `git pull origin master`
 
 
