@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
     config.vm.network "private_network", ip: "192.168.10.100"
     config.hostsupdater.aliases = ["development.local"]
     config.vm.synced_folder "app", "/home/ubuntu/app"
-    config.vm.provision "chef-solo" do |chef|
+    config.vm.provision "chef_solo" do |chef|
       chef.add_recipe "node::default"
       chef.add_recipe "python::default"
       chef.version = '14.12.9'
