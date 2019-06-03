@@ -1,16 +1,22 @@
 {
   "variables": {
-    "aws_access_key": "",
-    "aws_secret_key": "",
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
     "version": "{{env `GIT_TAG_NAME`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
+    "subnet_id": "subnet-0e9b6138ff1ce18f2",
+    "ssh_keypair_name": "LanyardKeyPair",
+    "ssh_private_key_file": "LanyardKeyPair.pem",
+    "ssh_agent_auth": true,
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
     "region": "eu-west-1",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
-        "name": "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*",
+        "name": "ubuntu/images/hvm-ssd/*ubuntu-xenial-16.04-amd64-server-*",
         "root-device-type": "ebs"
         },
       "owners": ["099720109477"],
@@ -22,12 +28,15 @@
   }],
 
   "provisioners": [
-      {
-      "type": "chef-solo",
-      "cookbook_paths": ["./cookbooks"],
-      "run_list": ["node::default"],
-      "run_list": ["python::default"]
+    {
+    "type": "chef-solo",
+    "cookbook_paths": ["./cookbooks"],
+    "install_command": "curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -v 13.3.42",
+    "run_list": [
+    "node::default",
+    "python::default"]
     },
+
     {
       "type": "shell",
       "inline":["mkdir /home/ubuntu/app"]
