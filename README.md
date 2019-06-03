@@ -1,4 +1,4 @@
-# group-project-main
+# PYTHON UBER PROJECT
 
 Clone this repo
 
@@ -6,10 +6,10 @@ Clone this repo
 
 `berks vendor cookbooks`
 
-### Spin up virtual machine
+### Spin Up Virtual Machine
 
 `vagrant up`
 
-### To view page
+### To View Page
 
 Go to http://development.local/
