@@ -3,8 +3,6 @@ driver:
   region: eu-west-1
   require_chef_omnibus: true
   instance_type: t2.micro
-  subnet_id: subnet-0e9b6138ff1ce18f2
-  aws_ssh_key_id: DevOpsStudentsEng2932
   associate_public_ip: true
 
 verifier:
