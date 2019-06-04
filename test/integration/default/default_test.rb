@@ -12,6 +12,10 @@ unless os.windows?
   end
 end
 
+describe port(80) do
+  it { should be_listening }
+end
+
 describe package 'python-pip' do
   it { should be_installed }
 end
@@ -24,3 +28,7 @@ describe service("nginx") do
   it { should be_running }
   it { should be_enabled }
 end
+
+describe file("/etc/python3/requirements.txt") do
+  it { should exist }
+ end

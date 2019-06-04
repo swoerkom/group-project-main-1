@@ -6,6 +6,7 @@
 require 'chefspec'
 require 'spec_helper'
 
+
 describe 'uber::default' do
   context 'When all attributes are default, on Ubuntu 16.04' do
     let(:chef_run) do
@@ -14,7 +15,6 @@ describe 'uber::default' do
       runner = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
       runner.converge(described_recipe)
     end
-
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
@@ -24,6 +24,9 @@ describe 'uber::default' do
     it 'should install nginx' do
       expect(chef_run).to install_package("nginx")
     end
+    it 'should install nodejs' do
+      expect(chef_run).to install_package("nodejs")
+    end
     it "should install python-pip" do
       expect(chef_run).to install_package("python-pip")
     end
@@ -31,6 +34,11 @@ describe 'uber::default' do
       expect(chef_run).to install_package("python3")
     end
 
-    at_exit { ChefSpec::Coverage.report! }
+    it 'creates a requirements file' do
+      expect(chef_run).to create_template('/etc/python3/requirements.txt')
+   end
+   it 'creates NGINX proxy.conf file' do
+     expect(chef_run).to create_template('/etc/nginx/sites-available/proxy.conf')
+   end
   end
 end
