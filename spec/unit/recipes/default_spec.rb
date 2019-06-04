@@ -15,8 +15,24 @@ describe 'uber::default' do
       runner.converge(described_recipe)
     end
 
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
-    end
+      it 'converges successfully' do
+        expect { chef_run }.to_not raise_error
+      end
+      it 'updates all sources' do
+        expect(chef_run).to update_apt_update 'update'
+      end
+
+      it "should install python-pip" do
+        expect(chef_run).to install_package("python-pip")
+      end
+      it "should install python3" do
+        expect(chef_run).to install_package("python3")
+      end
+
+      it 'should install nginx' do
+        expect(chef_run).to install_package("nginx")
+      end
+
+      at_exit { ChefSpec::Coverage.report! }
+      end
   end
-end
